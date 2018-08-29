@@ -10,7 +10,7 @@ RUN yarn run build
 
 #########################################################
 
-FROM nginx
+FROM nginx:stable-alpine
 
 COPY --from=builder /app/build /usr/share/nginx/html
 
