@@ -2,16 +2,15 @@ FROM node:alpine as builder
 
 WORKDIR '/app'
 
-COPY package.json .
-RUN npm install
+COPY ./ ./
 
-COPY . .
+RUN yarn install --production && yarn cache clean
 
-RUN npm run build
+RUN yarn run build
 
 #########################################################
 
-FROM nginx
+FROM nginx:alpine
 
 COPY --from=builder /app/build /usr/share/nginx/html
 
